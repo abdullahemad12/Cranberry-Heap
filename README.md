@@ -51,7 +51,7 @@ A binary heap implementation written in C with simple interface. Cranberry Heap 
 	<tr>
 		<td>void*</td>
 		<td>
-			<b><a href="#extractmw">cbh_extractmw(struct cranbheap* cbh)</a></b><br>
+			<b><a href="#extract">cbh_extractmw(struct cranbheap* cbh)</a></b><br>
 			removes the root element from the heap (i.e maximum/minimum element)
 		</td>
 	</tr>
@@ -176,7 +176,6 @@ where -lcranbheap tells the compiler where to find the code for the library
 To uninstall the library run the following command in the terminal: 
 `sudo make uninstall`
 
-``
 
 ## Contribution
 if you are planning to contribute, it is highly recommended that you read through the docs and go through the [CONTRIBUTING.md](CONTRIBUTING.md) guidlines
