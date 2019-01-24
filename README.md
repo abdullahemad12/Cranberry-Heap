@@ -34,7 +34,6 @@ A binary heap implementation written in C with simple interface. Cranberry Heap 
 			Creates a new cranberry heap structure
 		</td>
 	</tr>
-
 	<tr>
 		<td>void</td>
 		<td>
@@ -42,8 +41,6 @@ A binary heap implementation written in C with simple interface. Cranberry Heap 
 			Inserts a new element in the heap
 		</td>
 	</tr>
-
-
 	<tr>
 		<td>void*</td>
 		<td>
@@ -51,7 +48,6 @@ A binary heap implementation written in C with simple interface. Cranberry Heap 
 			deletes an element from the heap
 		</td>
 	</tr>
-	
 	<tr>
 		<td>void*</td>
 		<td>
