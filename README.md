@@ -76,6 +76,13 @@ A binary heap implementation written in C with simple interface. Cranberry Heap 
 			returns true if obj is store in the heap
 		</td>
 	</tr>
+	<tr>
+		<td>unsigned int</td>
+		<td>
+			<b><a href="#length">cbh_length(struct cranbheap* cbh)</a></b><br>
+			returns the number of elements store in the heap
+		</td>
+	</tr>
 </table>
 
 ## create
@@ -151,6 +158,7 @@ Removes all the elements from the heap
 
 **bool cbh_contains(struct cranbheap* cbh, void* obj)**
 
+
 checks if the given element is present in the heap
 
 #### Returns: 
@@ -160,6 +168,17 @@ returns true if the given object is present in the heap, false otherwise
 - struct cranbheap* cbh: pointer to the heap
 - void* obj: pointer to the object to be searched for
 
+
+## length
+
+**unsigned int cbh_length(struct cranbheap* cbh)**
+gets the number of elements stored in the heap
+
+#### Returns: 
+the number of void* objects stored in the heap
+
+#### Parameters:
+- struct cranbheap* cbh: pointer to the heap
 
 # Installation on Linux and Unix-like machines
 
