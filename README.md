@@ -1,7 +1,7 @@
 <h1><img src ="docs/Art/cranberries_white_small.png" alt = "cranberries" width="12%">Cranberry Heap</h1>
 
 [![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-blue.svg?style=flat-square)](https://www.firsttimersonly.com/)
-[![Join the chat at https://gitter.im/Cranberry-heap](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Cranberry-Tree)
+[![Join the chat at https://gitter.im/Cranberry-heap](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Cranberry-heap)
 
 A binary heap implementation written in C with simple interface. Cranberry Heap can be used as a min or max heap. A binary heap is a binary tree like data structure that stores elements in specific order and useful for quickly answering queries about the maximum or the minimum elements. Visit [Wikipedia](https://en.wikipedia.org/wiki/Binary_heap) to know more. 
 
