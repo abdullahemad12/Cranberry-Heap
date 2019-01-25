@@ -38,10 +38,10 @@ void cbh_create_test2(void)
 {
 	struct cranbheap* cbh = cbh_create(comparator);
 	CU_ASSERT_PTR_NOT_NULL_FATAL(cbh);
-	CU_ASSERT_PTR_NULL(cbh->cbh_objects);
+	CU_ASSERT_PTR_NOT_NULL(cbh->cbh_objects);
 	CU_ASSERT_PTR_NOT_NULL(cbh->cbh_comparator);
 	CU_ASSERT_EQUAL(cbh->cbh_length, 0);
-	CU_ASSERT_EQUAL(cbh->cbh_size, 0);
+	CU_ASSERT_EQUAL(cbh->cbh_size, 1);
 	cbh_destroy(cbh);
 }
 

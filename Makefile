@@ -20,7 +20,7 @@ HDRS = include/cranbheap.h
 LIBS = -lcunit
 
 # space-separated list of source files
-SRCS = src/cranbheap.c
+SRCS = src/cranbheap.c src/lib/*.c
 
 
 # Included folders

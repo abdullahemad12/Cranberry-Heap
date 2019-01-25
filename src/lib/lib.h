@@ -21,55 +21,10 @@
   * SOFTWARE.
   */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <cranbheap.h>
-#include "lib/lib.h"
 
-struct cranbheap* cbh_create(int (* comparator)(void*, void*))
-{
-	if(comparator == NULL)
-	{
-		return NULL;
-	}
-
-	struct cranbheap* cbh = malloc(sizeof(struct cranbheap));
-	if(cbh == NULL)
-	{
-		return NULL;
-	}
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 1;
-	cbh->cbh_comparator = comparator;
-	cbh->cbh_objects = malloc(sizeof(void*));
-	if(cbh->cbh_objects == NULL)
-	{
-		cbh_destroy(cbh);
-		cbh = NULL;
-	}
-	return cbh;
-}
-
-void cbh_insert(struct cranbheap* cbh, void* obj)
-{
-	cbh_insert_helper(cbh, obj);
-}
-
-
-void cbh_destroy(struct cranbheap* cbh)
-{
-	if(cbh == NULL)
-	{
-		return;
-	}
-	if(cbh->cbh_objects != NULL)
-	{
-		free(cbh->cbh_objects);
-		cbh->cbh_objects = NULL;
-	}
-	cbh->cbh_comparator = NULL;
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 0;
-	free(cbh);
-}
-
+int parent(int i);
+int left(int i);
+int right(int i);
+void swap(void** x, void** y);
+void cbh_insert_helper(cranbheap_t* cbh, void* obj);

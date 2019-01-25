@@ -25,7 +25,7 @@
 #define _CRANBHEAP_H_
 
 #include <stdbool.h>
-
+#include <stdio.h>
 
 /**
   * struct for the cranbheap data structutre 

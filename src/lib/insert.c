@@ -20,56 +20,39 @@
   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   * SOFTWARE.
   */
-
-#include <stdio.h>
-#include <stdlib.h>
 #include <cranbheap.h>
-#include "lib/lib.h"
+#include "lib.h"
+#include <stdlib.h>
+/*
+ * Helper function for the insert operation
+ */
 
-struct cranbheap* cbh_create(int (* comparator)(void*, void*))
+void cbh_insert_helper(cranbheap_t* cbh, void* obj)
 {
-	if(comparator == NULL)
+	if(cbh->cbh_length == cbh->cbh_size)
 	{
-		return NULL;
+		int n = cbh->cbh_size * 2;
+		void** tmp = cbh->cbh_objects;
+		cbh->cbh_objects = malloc(sizeof(void*) * n);
+		/*failed*/
+		if(cbh->cbh_objects == NULL)
+		{
+			cbh->cbh_objects = tmp;
+			return;
+		}
+		for(int i = 0; i < cbh->cbh_length; i++)
+		{
+			cbh->cbh_objects = tmp[i];
+		}
+		cbh->cbh_size = n;
 	}
-
-	struct cranbheap* cbh = malloc(sizeof(struct cranbheap));
-	if(cbh == NULL)
+	
+	int i = cbh->cbh_length++;
+	cbh->cbh_objects[i] = obj;
+	
+	while(i != 0 && cbh->cbh_comparator(obj, cbh->cbh_objects[parent(i)]))
 	{
-		return NULL;
+		swap(&(cbh->cbh_objects[parent(i)]), &(cbh->cbh_objects[i]));
+		i = parent(i);
 	}
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 1;
-	cbh->cbh_comparator = comparator;
-	cbh->cbh_objects = malloc(sizeof(void*));
-	if(cbh->cbh_objects == NULL)
-	{
-		cbh_destroy(cbh);
-		cbh = NULL;
-	}
-	return cbh;
 }
-
-void cbh_insert(struct cranbheap* cbh, void* obj)
-{
-	cbh_insert_helper(cbh, obj);
-}
-
-
-void cbh_destroy(struct cranbheap* cbh)
-{
-	if(cbh == NULL)
-	{
-		return;
-	}
-	if(cbh->cbh_objects != NULL)
-	{
-		free(cbh->cbh_objects);
-		cbh->cbh_objects = NULL;
-	}
-	cbh->cbh_comparator = NULL;
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 0;
-	free(cbh);
-}
-

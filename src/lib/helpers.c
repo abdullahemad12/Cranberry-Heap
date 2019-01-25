@@ -21,55 +21,29 @@
   * SOFTWARE.
   */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <cranbheap.h>
-#include "lib/lib.h"
+#include "lib.h"
+/*
+ * Helper functions for the heap
+ */
 
-struct cranbheap* cbh_create(int (* comparator)(void*, void*))
+int parent(int i)
 {
-	if(comparator == NULL)
-	{
-		return NULL;
-	}
-
-	struct cranbheap* cbh = malloc(sizeof(struct cranbheap));
-	if(cbh == NULL)
-	{
-		return NULL;
-	}
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 1;
-	cbh->cbh_comparator = comparator;
-	cbh->cbh_objects = malloc(sizeof(void*));
-	if(cbh->cbh_objects == NULL)
-	{
-		cbh_destroy(cbh);
-		cbh = NULL;
-	}
-	return cbh;
+	return (i - 1) / 2;
 }
 
-void cbh_insert(struct cranbheap* cbh, void* obj)
+int left(int i)
 {
-	cbh_insert_helper(cbh, obj);
+	return ((2 * i) + 1);
 }
 
-
-void cbh_destroy(struct cranbheap* cbh)
+int right(int i)
 {
-	if(cbh == NULL)
-	{
-		return;
-	}
-	if(cbh->cbh_objects != NULL)
-	{
-		free(cbh->cbh_objects);
-		cbh->cbh_objects = NULL;
-	}
-	cbh->cbh_comparator = NULL;
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 0;
-	free(cbh);
+	return ((2 * i) + 2);
 }
 
+void swap(void** x, void** y)
+{
+	void* tmp = *x;
+	*x = *y;
+	*y = tmp;
+}
