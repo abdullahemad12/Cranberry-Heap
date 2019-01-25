@@ -49,17 +49,16 @@ void cbh_create_test2(void)
 void cbh_insert_test1(void)
 {
 	struct cranbheap* cbh = cbh_create(comparator);
-	int n = 12000000;
+	int n = 1200000;
 	int* arr = malloc(sizeof(int) * n);
 	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
 	pickNRandomNumber(arr,  n);
 	for(int i = 0; i < n; i++)
 	{
-		cbh_insert(cbh, &arr[i]);
+		cbh_insert(cbh, &(arr[i]));
 	}
 	CU_ASSERT_PTR_NOT_NULL_FATAL(cbh->cbh_objects);
-	CU_ASSERT_EQUAL(*((int*)&cbh->cbh_objects[0]), 0);
-
+	CU_ASSERT_EQUAL(*((int*)cbh->cbh_objects[0]), 0);
 	free(arr);
 	cbh_destroy(cbh);
 }
@@ -67,21 +66,20 @@ void cbh_insert_test1(void)
 void cbh_insert_test2(void)
 {
 	struct cranbheap* cbh = cbh_create(comparator);
-	int n = 12000;
+	int n = 10;
 	int* arr = malloc(sizeof(int) * n);
-	int min = INFINITY;
+	int min = 2000012;
 	for(int i = 0; i < n; i++)
 	{	
 		arr[i] = pickRandomNumber(-200000, 200000);
-		cbh_insert(cbh, &arr[i]);
+		cbh_insert(cbh, &(arr[i]));
 		if(min > arr[i])
 		{
 			min = arr[i];
 		}
 	}
 	CU_ASSERT_PTR_NOT_NULL_FATAL(cbh->cbh_objects);
-	CU_ASSERT_EQUAL(*((int*)&cbh->cbh_objects[0]), min);
-	
+	CU_ASSERT_EQUAL(*((int*)cbh->cbh_objects[0]), min);
 	free(arr);
 	cbh_destroy(cbh);
 }

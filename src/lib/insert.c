@@ -42,15 +42,16 @@ void cbh_insert_helper(cranbheap_t* cbh, void* obj)
 		}
 		for(int i = 0; i < cbh->cbh_length; i++)
 		{
-			cbh->cbh_objects = tmp[i];
+			cbh->cbh_objects[i] = tmp[i];
 		}
 		cbh->cbh_size = n;
+		free(tmp);
 	}
 	
 	int i = cbh->cbh_length++;
 	cbh->cbh_objects[i] = obj;
 	
-	while(i != 0 && cbh->cbh_comparator(obj, cbh->cbh_objects[parent(i)]))
+	while(i != 0 && cbh->cbh_comparator(cbh->cbh_objects[parent(i)], obj) >= 0)
 	{
 		swap(&(cbh->cbh_objects[parent(i)]), &(cbh->cbh_objects[i]));
 		i = parent(i);
