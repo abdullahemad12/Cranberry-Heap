@@ -113,9 +113,11 @@ Inserts a new object in the tree
 
 ## delete
 
- **void cbh_delete((struct cranbheap* cbh, void* obj)**
+ **void* cbh_delete((struct cranbheap* cbh, void* obj)**
  Deletes a specific object from the heap
  
+#### Returns: 
+the deleted object if it exits, or NULL if the object was not found
 #### Parameters:
 - struct cranbheap* cbh: pointer to the heap
 - void* obj: the object to be removed from the heap
