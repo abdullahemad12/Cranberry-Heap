@@ -62,3 +62,8 @@ void cbh_destroy(struct cranbheap* cbh)
 	cbh->cbh_size = 0;
 	free(cbh);
 }
+
+void cbh_insert(struct cranbheap* cbh, void* obj)
+{
+
+}
