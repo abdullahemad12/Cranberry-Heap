@@ -34,10 +34,10 @@
   */ 
 typedef struct cranbheap
 {
-	size_t size; /*the size of the actual array*/
-	unsigned int length; /*the number of elements stored in the array*/
-	void** objects; /*the array of object pointers*/
-	int (* comparator)(void*, void*); /*used to order the objects*/
+	size_t cbh_size; /*the size of the actual array*/
+	unsigned int cbh_length; /*the number of elements stored in the array*/
+	void** cbh_objects; /*the array of object pointers*/
+	int (* cbh_comparator)(void*, void*); /*used to order the objects*/
 } cranbheap_t;
   
 
@@ -118,6 +118,15 @@ void cbh_clear(struct cranbheap* cbh);
   * - void* obj: the object to be searched for in the heap
   */
 bool cbh_contains(struct cranbheap* cbh, void* obj);
+
+/**
+  * struct cranbheap* -> void
+  * EFFECTS: free all the memory associated with the heap
+  * MODIFIES: cranbheap* cbh
+  * PARAMETERS:
+  * - struct cranbheap* cbh: pointer to the heap
+  */
+void cbh_destroy(struct cranbheap* cbh);
 
 
 #endif /*_CRANBHEAP_H_*/

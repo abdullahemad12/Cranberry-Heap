@@ -77,7 +77,7 @@ uninstall:
 
 #Creates binary for the test in /bin
 test: mkbin
-	$(CC) $(CFLAGS) test/test.c $(LIBS) -o bin/test -I $(INCLUDES)
+	$(CC) $(CFLAGS) test/test.c $(LIBS) $(SRCS) -o bin/test -I $(INCLUDES)
 
 #Creates binary for the cli in /bin
 cli: mkbin

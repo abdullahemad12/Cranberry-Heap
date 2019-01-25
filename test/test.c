@@ -17,7 +17,8 @@ struct test
 };
 
 static struct test utests[] = {
-	
+	{"cbh_create_test1", cbh_create_test1},
+	{"cbh_create_test2", cbh_create_test2},
 	{NULL, NULL}
 
 };

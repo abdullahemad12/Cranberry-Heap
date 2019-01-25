@@ -20,45 +20,8 @@
   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   * SOFTWARE.
   */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <cranbheap.h>
-
-
-struct cranbheap* cbh_create(int (* comparator)(void*, void*))
-{
-	if(comparator == NULL)
-	{
-		return NULL;
-	}
-
-	struct cranbheap* cbh = malloc(sizeof(struct cranbheap));
-	if(cbh == NULL)
-	{
-		return NULL;
-	}
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 0;
-	cbh->cbh_comparator = comparator;
-	cbh->cbh_objects = NULL;
-	return cbh;
-}
-
-
-void cbh_destroy(struct cranbheap* cbh)
-{
-	if(cbh == NULL)
-	{
-		return;
-	}
-	if(cbh->cbh_objects != NULL)
-	{
-		free(cbh->cbh_objects);
-		cbh->cbh_objects = NULL;
-	}
-	cbh->cbh_comparator = NULL;
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 0;
-	free(cbh);
-}
+  
+ #include <stdio.h>
+ #include <cranbheap.h>
+ 
+ 
