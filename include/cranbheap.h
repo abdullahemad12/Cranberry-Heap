@@ -76,7 +76,7 @@ void cbh_insert(struct cranbheap* cbh, void* obj);
   * - struct cranbheap* cbh: pointer to the cranbheap
   * - void* obj: pointer to the element to be deleted from the heap
   */
-void cbh_delete(struct cranbheap* cbh, void* obj);
+void* cbh_delete(struct cranbheap* cbh, void* obj);
 
 
 /**

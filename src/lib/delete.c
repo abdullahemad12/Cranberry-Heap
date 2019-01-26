@@ -20,72 +20,49 @@
   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   * SOFTWARE.
   */
-
-#include <stdio.h>
 #include <stdlib.h>
 #include <cranbheap.h>
-#include "lib/lib.h"
+#include "lib.h"
 
-struct cranbheap* cbh_create(int (* comparator)(void*, void*))
+/**
+  * EFFECTS: Removes the given object from the heap if it exists
+  * MODIFIES: struct cranbheap* cbh
+  * RETURNS: the removed object, or NULL if it does not exist
+  * PARAMETERS:
+  * - struct cranbheap* cbh: pointer to the heap structure
+  * - void* obj: the object to be removed from the heap
+  */
+void* cbh_delete_helper(struct cranbheap* cbh, void* obj)
 {
-	if(comparator == NULL)
+	int i = cbh_find(cbh, obj);
+	if(i == -1)
 	{
 		return NULL;
 	}
-
-	struct cranbheap* cbh = malloc(sizeof(struct cranbheap));
-	if(cbh == NULL)
+	while (i != 0) 
 	{
-		return NULL;
+		swap(&cbh->cbh_objects[i], &cbh->cbh_objects[parent(i)]);
+		i = parent(i);
 	}
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 1;
-	cbh->cbh_comparator = comparator;
-	cbh->cbh_objects = malloc(sizeof(void*));
-	if(cbh->cbh_objects == NULL)
+
+	return cbh_extractmw(cbh);	
+}
+
+/**
+  * EFFECTS: finds the index of the given object in the heap
+  * RETURNS: the index of the of the object if found, -1 otherwise
+  * PARAMETERS:
+  * - struct cranbheap* cbh: pointer to the heap structure
+  * - void* obj: the object to be searched for
+  */
+int cbh_find(struct cranbheap* cbh, void* obj)
+{
+	for(int i = 0; i < cbh->cbh_length; i++)
 	{
-		cbh_destroy(cbh);
-		cbh = NULL;
+		if(cbh->cbh_objects[i] == obj || cbh->cbh_comparator(cbh->cbh_objects[i], obj) == 0)
+		{
+			return i;
+		}
 	}
-	return cbh;
+	return -1;
 }
-
-void cbh_insert(struct cranbheap* cbh, void* obj)
-{
-	cbh_insert_helper(cbh, obj);
-}
-
-
-void* cbh_delete(struct cranbheap* cbh, void* obj)
-{
-	return cbh_delete_helper(cbh, obj);
-}
-
-
-void* cbh_extractmw(struct cranbheap* cbh)
-{
-	return cbh_extractmw_helper(cbh);
-}
-
-void* cbh_peek(struct cranbheap* cbh)
-{
-	return cbh->cbh_objects[0];
-}
-
-void cbh_destroy(struct cranbheap* cbh)
-{
-	if(cbh == NULL)
-	{
-		return;
-	}
-	if(cbh->cbh_objects != NULL)
-	{
-		free(cbh->cbh_objects);
-		cbh->cbh_objects = NULL;
-	}
-	cbh->cbh_comparator = NULL;
-	cbh->cbh_length = 0;
-	cbh->cbh_size = 0;
-	free(cbh);
-}
-

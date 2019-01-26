@@ -88,7 +88,7 @@ void cbh_insert_test2(void)
 void cbh_extractmw_test1(void)
 {
 	struct cranbheap* cbh = cbh_create(comparator);
-	int n = 120000;
+	int n = 12000;
 	int* arr = malloc(sizeof(int) * n);
 	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
 	pickNRandomNumber(arr,  n);
@@ -111,7 +111,7 @@ void cbh_extractmw_test1(void)
 void cbh_extractmw_test2(void)
 {
 	struct cranbheap* cbh = cbh_create(comparator);
-	int n = 120000;
+	int n = 12000;
 	int* arr = malloc(sizeof(int) * n);
 	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
 
@@ -126,6 +126,10 @@ void cbh_extractmw_test2(void)
 	{
 		int* x = (int*) cbh_extractmw(cbh);
 		CU_ASSERT_PTR_NOT_NULL_FATAL(x);
+		if(*x != arr[i])
+		{
+			printf("x: %d, arr[i]: %d\n", *x, arr[i]);
+		}
 		CU_ASSERT_EQUAL(*x, arr[i]);
 	}
 
@@ -136,7 +140,7 @@ void cbh_extractmw_test2(void)
 void cbh_peak_test1(void)
 {
 	struct cranbheap* cbh = cbh_create(comparator);
-	int n = 120000;
+	int n = 12000;
 	int* arr = malloc(sizeof(int) * n);
 	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
 
@@ -160,6 +164,88 @@ void cbh_peak_test1(void)
 	free(arr);
 	cbh_destroy(cbh);
 }
+
+void cbh_delete_test1(void)
+{
+	struct cranbheap* cbh = cbh_create(comparator);
+	int n = 12000;
+	int* arr = malloc(sizeof(int) * n);
+	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
+
+	for(int i = 0; i < n; i++)
+	{	
+		arr[i] = pickRandomNumber(-200000, 200000);
+		cbh_insert(cbh, &(arr[i]));
+	}
+
+	/*delete nonexisting objects*/	
+	for(int i = 0; i < 100; i++)
+	{
+		int x = pickRandomNumber(200001, 300000);
+		void* res = cbh_delete(cbh, &x);
+		CU_ASSERT_PTR_NULL(res);
+	}
+	
+	free(arr);
+	cbh_destroy(cbh);
+}
+
+void cbh_delete_test2(void)
+{
+	struct cranbheap* cbh = cbh_create(comparator);
+
+	/*delete from empty heap*/	
+	for(int i = 0; i < 100; i++)
+	{
+		int x = pickRandomNumber(200001, 300000);
+		void* res = cbh_delete(cbh, &x);
+		CU_ASSERT_PTR_NULL(res);
+	}
+
+	cbh_destroy(cbh);
+}
+
+
+void cbh_delete_test3(void)
+{
+	struct cranbheap* cbh = cbh_create(comparator);
+	int n = 12000;
+	int* arr = malloc(sizeof(int) * n);
+	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
+
+	for(int i = 0; i < n; i++)
+	{	
+		arr[i] = pickRandomNumber(-200000, 200000);
+		cbh_insert(cbh, &(arr[i]));
+	}
+
+	/*delete random objects objects*/	
+	for(int i = 0; i < 100; i++)
+	{
+		int x = pickRandomNumber(-200000, 200000);
+		int* res = (int*)cbh_delete(cbh, &x);
+		if(res != NULL)
+		{
+			*res = 300000;
+			for(int i = 0; i < cbh->cbh_length; i++)
+			{
+				CU_ASSERT_PTR_NOT_EQUAL(cbh->cbh_objects[i], res);
+			}
+		}
+	}
+
+	sort(arr, n);
+
+	for(int i = 0; i < cbh->cbh_length; i++)
+	{
+		int* res = (int*) cbh_extractmw(cbh);
+		CU_ASSERT_EQUAL(arr[i], *res);
+	}
+	
+	free(arr);
+	cbh_destroy(cbh);
+} 
+
 
 static void sort(int* arr, int n)
 {

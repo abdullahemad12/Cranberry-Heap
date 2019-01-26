@@ -30,3 +30,5 @@ void swap(void** x, void** y);
 void cbh_insert_helper(cranbheap_t* cbh, void* obj);
 void heapify(struct cranbheap* cbh, int i);
 void* cbh_extractmw_helper(struct cranbheap* cbh);
+int cbh_find(struct cranbheap* cbh, void* obj);
+void* cbh_delete_helper(struct cranbheap* cbh, void* obj);

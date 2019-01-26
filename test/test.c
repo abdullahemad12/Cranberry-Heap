@@ -17,13 +17,16 @@ struct test
 };
 
 static struct test utests[] = {
-	{"cbh_create_test1", cbh_create_test1},
-	{"cbh_create_test2", cbh_create_test2},
-	{"cbh_insert_test1", cbh_insert_test1},
-	{"cbh_insert_test2", cbh_insert_test2},
-	{"cbh_extractmw_test1", cbh_extractmw_test1},
-	{"cbh_extractmw_test2", cbh_extractmw_test2},
-	{"cbh_peak_test1", cbh_peak_test1},
+	{ "cbh_create_test1", cbh_create_test1 },
+	{ "cbh_create_test2", cbh_create_test2 },
+	{ "cbh_insert_test1", cbh_insert_test1 },
+	{ "cbh_insert_test2", cbh_insert_test2 },
+	{ "cbh_extractmw_test1", cbh_extractmw_test1 },
+	{ "cbh_extractmw_test2", cbh_extractmw_test2 },
+	{ "cbh_peak_test1", cbh_peak_test1 },
+	{ "cbh_delete_test1", cbh_delete_test1 },
+	{ "cbh_delete_test2", cbh_delete_test2 },
+	{ "cbh_delete_test3", cbh_delete_test3 },
 	{NULL, NULL}
 
 };
