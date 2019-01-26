@@ -21,6 +21,9 @@ static struct test utests[] = {
 	{"cbh_create_test2", cbh_create_test2},
 	{"cbh_insert_test1", cbh_insert_test1},
 	{"cbh_insert_test2", cbh_insert_test2},
+	{"cbh_extractmw_test1", cbh_extractmw_test1},
+	{"cbh_extractmw_test2", cbh_extractmw_test2},
+	{"cbh_peak_test1", cbh_peak_test1},
 	{NULL, NULL}
 
 };

@@ -8,6 +8,7 @@
 
 static void pickNRandomNumber(int arr[], int n);
 static int pickRandomNumber(int lower, int upper);
+static void sort(int* arr, int n);
 
 static int comparator(void* arg0, void* arg1)
 {
@@ -84,6 +85,131 @@ void cbh_insert_test2(void)
 	cbh_destroy(cbh);
 }
 
+void cbh_extractmw_test1(void)
+{
+	struct cranbheap* cbh = cbh_create(comparator);
+	int n = 120000;
+	int* arr = malloc(sizeof(int) * n);
+	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
+	pickNRandomNumber(arr,  n);
+	for(int i = 0; i < n; i++)
+	{
+		cbh_insert(cbh, &(arr[i]));
+	}
+	for(int i = 0; i < n; i++)
+	{
+		int* x = (int*) cbh_extractmw(cbh);
+		CU_ASSERT_PTR_NOT_NULL_FATAL(x);
+		CU_ASSERT_EQUAL(*x, i);
+	}
+	int* x = (int*) cbh_extractmw(cbh);
+	CU_ASSERT_PTR_NULL(x);
+	free(arr);
+	cbh_destroy(cbh);
+}
+
+void cbh_extractmw_test2(void)
+{
+	struct cranbheap* cbh = cbh_create(comparator);
+	int n = 120000;
+	int* arr = malloc(sizeof(int) * n);
+	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
+
+	for(int i = 0; i < n; i++)
+	{	
+		arr[i] = pickRandomNumber(-200000, 200000);
+		cbh_insert(cbh, &(arr[i]));
+	}
+	sort(arr, n);
+
+	for(int i = 0; i < n; i++)
+	{
+		int* x = (int*) cbh_extractmw(cbh);
+		CU_ASSERT_PTR_NOT_NULL_FATAL(x);
+		CU_ASSERT_EQUAL(*x, arr[i]);
+	}
+
+	free(arr);
+	cbh_destroy(cbh);
+}
+
+void cbh_peak_test1(void)
+{
+	struct cranbheap* cbh = cbh_create(comparator);
+	int n = 120000;
+	int* arr = malloc(sizeof(int) * n);
+	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
+
+	for(int i = 0; i < n; i++)
+	{	
+		arr[i] = pickRandomNumber(-200000, 200000);
+		cbh_insert(cbh, &(arr[i]));
+	}
+	sort(arr, n);
+
+	for(int i = 0; i < n; i++)
+	{
+		int* y = (int*) cbh_peek(cbh);
+		int* x = (int*) cbh_extractmw(cbh);
+		CU_ASSERT_PTR_NOT_NULL_FATAL(x);
+		CU_ASSERT_EQUAL(*x, arr[i]);
+		CU_ASSERT_PTR_EQUAL(x, y);
+	}
+
+
+	free(arr);
+	cbh_destroy(cbh);
+}
+
+static void sort(int* arr, int n)
+{
+	if(n <= 1)
+	{
+		return;
+	}
+	int ln = n / 2;
+	int rn = n - ln;
+	int* l = malloc(sizeof(int) * ln);
+	int* r = malloc(sizeof(int) * rn);
+	for(int i = 0; i < ln; i++)
+	{
+		l[i] = arr[i];
+	}
+	for(int i = 0; i < rn; i++)
+	{
+		r[i] = arr[ln + i];
+	}
+
+	sort(l, ln);
+	sort(r, rn);
+
+	int lptr = 0;
+	int rptr = 0;
+	for(int i = 0; i < n; i++)
+	{
+		if(lptr >= ln)
+		{
+			arr[i] = r[rptr++];
+		}
+		else if(rptr  >= rn)
+		{
+			arr[i] = l[lptr++];
+		}
+		else
+		{
+			if(l[lptr] < r[rptr])
+			{
+				arr[i] = l[lptr++];
+			}
+			else
+			{
+				arr[i] = r[rptr++];
+			}
+		}
+	}
+	free(l);
+	free(r);
+}
 
 /**
   * int[], int -> void

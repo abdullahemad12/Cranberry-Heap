@@ -56,6 +56,16 @@ void cbh_insert(struct cranbheap* cbh, void* obj)
 }
 
 
+void* cbh_extractmw(struct cranbheap* cbh)
+{
+	return cbh_extractmw_helper(cbh);
+}
+
+void* cbh_peek(struct cranbheap* cbh)
+{
+	return cbh->cbh_objects[0];
+}
+
 void cbh_destroy(struct cranbheap* cbh)
 {
 	if(cbh == NULL)

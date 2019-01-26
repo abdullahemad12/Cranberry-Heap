@@ -28,3 +28,5 @@ int left(int i);
 int right(int i);
 void swap(void** x, void** y);
 void cbh_insert_helper(cranbheap_t* cbh, void* obj);
+void heapify(struct cranbheap* cbh, int i);
+void* cbh_extractmw_helper(struct cranbheap* cbh);
