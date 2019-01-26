@@ -284,7 +284,27 @@ void cbh_clear_test(void)
 }
 
 
+void cbh_contains_test(void)
+{
+	struct cranbheap* cbh = cbh_create(comparator);
+	int n = 1200;
+	int* arr = malloc(sizeof(int) * n);
+	CU_ASSERT_PTR_NOT_NULL_FATAL(arr);
+	pickNRandomNumber(arr,  n);
+	for(int i = 0; i < n; i++)
+	{
+		cbh_insert(cbh, &(arr[i]));
+	}
 
+	for(int i = 0; i < n; i++)
+	{
+		CU_ASSERT(cbh_contains(cbh, &arr[i]));
+		cbh_delete(cbh, &arr[i]);
+		CU_ASSERT(!cbh_contains(cbh, &arr[i]));
+	}
+	free(arr);
+	cbh_destroy(cbh);
+}
 static void sort(int* arr, int n)
 {
 	if(n <= 1)

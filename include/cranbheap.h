@@ -38,6 +38,7 @@ typedef struct cranbheap
 	unsigned int cbh_length; /*the number of elements stored in the array*/
 	void** cbh_objects; /*the array of object pointers*/
 	int (* cbh_comparator)(void*, void*); /*used to order the objects*/
+
 } cranbheap_t;
   
 

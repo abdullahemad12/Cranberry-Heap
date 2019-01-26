@@ -27,7 +27,8 @@ static struct test utests[] = {
 	{ "cbh_delete_test1", cbh_delete_test1 },
 	{ "cbh_delete_test2", cbh_delete_test2 },
 	{ "cbh_delete_test3", cbh_delete_test3 },
-	{ "cbh_clear_test", cbh_clear_test}, 
+	{ "cbh_clear_test", cbh_clear_test},
+	{ "cbh_contains_test", cbh_contains_test}, 
 	{NULL, NULL}
 
 };

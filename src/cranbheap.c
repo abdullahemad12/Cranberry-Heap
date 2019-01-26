@@ -97,7 +97,14 @@ void cbh_destroy(struct cranbheap* cbh)
 	free(cbh);
 }
 
-bool cbh_contains(struct cranbheap* cbh)
+bool cbh_contains(struct cranbheap* cbh, void* obj)
 {
-	
+	for(int i = 0; i < cbh->cbh_length; i++)
+	{
+		if(cbh->cbh_objects[i] ==  obj)
+		{
+			return true;
+		}
+	}
+	return false;
 }
