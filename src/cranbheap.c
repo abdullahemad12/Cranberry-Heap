@@ -62,6 +62,14 @@ void* cbh_delete(struct cranbheap* cbh, void* obj)
 }
 
 
+void cbh_clear(struct cranbheap* cbh)
+{
+	free(cbh->cbh_objects);
+	cbh->cbh_objects = malloc(sizeof(void*));
+	cbh->cbh_length = 0;
+	cbh->cbh_size = 1;
+}
+
 void* cbh_extractmw(struct cranbheap* cbh)
 {
 	return cbh_extractmw_helper(cbh);
