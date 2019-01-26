@@ -96,11 +96,13 @@ void cbh_extractmw_test1(void)
 	{
 		cbh_insert(cbh, &(arr[i]));
 	}
+	CU_ASSERT_EQUAL(cbh->cbh_length, n);
 	for(int i = 0; i < n; i++)
 	{
 		int* x = (int*) cbh_extractmw(cbh);
 		CU_ASSERT_PTR_NOT_NULL_FATAL(x);
 		CU_ASSERT_EQUAL(*x, i);
+		CU_ASSERT_EQUAL(cbh->cbh_length, n - (i + 1));
 	}
 	int* x = (int*) cbh_extractmw(cbh);
 	CU_ASSERT_PTR_NULL(x);
@@ -121,7 +123,7 @@ void cbh_extractmw_test2(void)
 		cbh_insert(cbh, &(arr[i]));
 	}
 	sort(arr, n);
-
+	CU_ASSERT_EQUAL(cbh->cbh_length, n);
 	for(int i = 0; i < n; i++)
 	{
 		int* x = (int*) cbh_extractmw(cbh);
@@ -131,6 +133,7 @@ void cbh_extractmw_test2(void)
 			printf("x: %d, arr[i]: %d\n", *x, arr[i]);
 		}
 		CU_ASSERT_EQUAL(*x, arr[i]);
+		CU_ASSERT_EQUAL(cbh->cbh_length, n - (i + 1));
 	}
 
 	free(arr);
@@ -177,13 +180,14 @@ void cbh_delete_test1(void)
 		arr[i] = pickRandomNumber(-200000, 200000);
 		cbh_insert(cbh, &(arr[i]));
 	}
-
+	CU_ASSERT_EQUAL(cbh->cbh_length, n);
 	/*delete nonexisting objects*/	
 	for(int i = 0; i < 100; i++)
 	{
 		int x = pickRandomNumber(200001, 300000);
 		void* res = cbh_delete(cbh, &x);
 		CU_ASSERT_PTR_NULL(res);
+		CU_ASSERT_EQUAL(cbh->cbh_length, n);
 	}
 	
 	free(arr);
@@ -194,12 +198,14 @@ void cbh_delete_test2(void)
 {
 	struct cranbheap* cbh = cbh_create(comparator);
 
-	/*delete from empty heap*/	
+	/*delete from empty heap*/
+	CU_ASSERT_EQUAL(cbh->cbh_length, 0);	
 	for(int i = 0; i < 100; i++)
 	{
 		int x = pickRandomNumber(200001, 300000);
 		void* res = cbh_delete(cbh, &x);
 		CU_ASSERT_PTR_NULL(res);
+		CU_ASSERT_EQUAL(cbh->cbh_length, 0);
 	}
 
 	cbh_destroy(cbh);
@@ -219,6 +225,8 @@ void cbh_delete_test3(void)
 		cbh_insert(cbh, &(arr[i]));
 	}
 
+	CU_ASSERT_EQUAL(cbh->cbh_length, n);
+	int deleted = 0;
 	/*delete random objects objects*/	
 	for(int i = 0; i < 100; i++)
 	{
@@ -226,12 +234,14 @@ void cbh_delete_test3(void)
 		int* res = (int*)cbh_delete(cbh, &x);
 		if(res != NULL)
 		{
+			++deleted;
 			*res = 300000;
 			for(int i = 0; i < cbh->cbh_length; i++)
 			{
 				CU_ASSERT_PTR_NOT_EQUAL(cbh->cbh_objects[i], res);
 			}
 		}
+		CU_ASSERT_EQUAL(cbh->cbh_length, n - deleted);
 	}
 
 	sort(arr, n);
