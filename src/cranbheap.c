@@ -97,3 +97,7 @@ void cbh_destroy(struct cranbheap* cbh)
 	free(cbh);
 }
 
+bool cbh_contains(struct cranbheap* cbh)
+{
+	
+}

@@ -213,6 +213,9 @@ Please follow the format proposed by these templates before opening a new issue.
 #### Creating a Pull request 
 Please follow that pull request guidelines specified in The [pull Request template](PULL_REQUEST_TEMPLATE.md)
 
+## Attribution
+
+- [“uthash"](http://troydhanson.github.io/uthash/) by [Troy D. Hanso](https://github.com/troydhanson) is licensed under BCD
 
 ## Contact Me: 
 
